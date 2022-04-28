@@ -19,4 +19,9 @@ body {
   width: 352px;
   height: 198px;
   outline: 1px solid white;
+  transform: scale(2);
+}
+
+.game-container canvas {
+  image-rendering: pixelated;
 }
