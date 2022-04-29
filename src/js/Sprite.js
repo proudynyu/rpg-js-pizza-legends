@@ -6,6 +6,15 @@ class Sprite {
       this.isLoaded = true
     }
 
+    this.shadow = new Image()
+    this.useShadow = true
+    if (this.useShadow) {
+      this.shadow.src = "src/assets/characters/shadow.png"
+    }
+    this.shadow.onload = () => {
+      this.isShadowLoaded = true
+    }
+
     this.animation = config.animations || {
       idleDown: [
         [0,0]
@@ -13,12 +22,25 @@ class Sprite {
     }
     this.currentAnimation = config.currentAnimation || "idleDown"
     this.currentAnimationFrame = 0
+
+    this.gameObject = config.gameObject
   }
 
   draw(ctx) {
     const x = this.gameObject.x * 16 - 8
     const y = this.gameObject.y * 16 - 18
 
-    ctx.drawImage(this.image, 0, 0, 32, 32, x, y, 32, 32)
+    this.isShadowLoaded && ctx.drawImage(
+      this.shadow, 
+      x, y
+    )
+
+    this.isLoaded && ctx.drawImage(
+      this.image, 
+      0, 0, 
+      32, 32, 
+      x, y, 
+      32, 32
+    )
   }
 }

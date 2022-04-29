@@ -12,21 +12,19 @@ class Overworld {
     }
     image.src = 'src/assets/maps/DemoLower.png'
 
-    const heroVector = {
+    const hero = new GameObject({
       x: 5,
       y: 6
-    }
+    })
+    const npc1 = new GameObject({
+      x: 7,
+      y: 8,
+      src: 'src/assets/characters/people/npc1.png'
+    })
 
-    const heroShadow = new Image()
-    heroShadow.onload = () => {
-      this.ctx.drawImage(heroShadow, heroVector.x * 16 - 8, heroVector.y * 16 - 18)
-    }
-    heroShadow.src = 'src/assets/characters/shadow.png'
-
-    const hero = new Image()
-    hero.onload = () => {
-      this.ctx.drawImage(hero, 0, 0, 32, 32, heroVector.x * 16 - 8, heroVector.y * 16 - 18, 32, 32)
-    }
-    hero.src = 'src/assets/characters/people/hero.png'
+    setTimeout(() => {
+      hero.sprite.draw(this.ctx)
+      npc1.sprite.draw(this.ctx)
+    }, 200)
   }
 }
