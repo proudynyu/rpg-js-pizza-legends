@@ -1,42 +1,48 @@
-import { GameObject } from '.'
+import { OverworldMap } from './OverworldMap'
 
 interface OverworldProps {
-  containerElement: Element | null
+  containerElement?: Element
 }
 
 export class Overworld {
-  public containerElement: Element | null
-  public canvas: HTMLCanvasElement | null
-  public ctx: CanvasRenderingContext2D | null
+  public containerElement?: Element
+  public canvas?: HTMLCanvasElement
+  public ctx?: CanvasRenderingContext2D
+  public map?: OverworldMap
 
   constructor(config: OverworldProps) {
     this.containerElement = config.containerElement
     this.canvas = this.containerElement?.querySelector('.game-canvas') ?? null
     this.ctx = this.canvas?.getContext('2d') ?? null
+    this.map = null
+  }
+
+  startGameLoop() {
+    const step = () => {
+
+      this.map.drawLowerImage(this.ctx)
+
+      console.log(this.map)
+
+      Object.values(this.map.gameObject).forEach((gameObject) => {
+        gameObject.sprite.draw(
+          this.ctx
+        )
+      })
+
+      this.map.drawUpperImage(this.ctx)
+
+      requestAnimationFrame(() => {
+        step()
+      })
+    }
+
+    step()
   }
 
   init() {
-    const image = new Image()
-    image.onload = () => {
-      this.ctx?.drawImage(image, 0, 0)
-    }
-    image.src = 'assets/maps/DemoLower.png'
-
-    const hero = new GameObject({
-      x: 5,
-      y: 6
-    })
-    const npc1 = new GameObject({
-      x: 7,
-      y: 8,
-      src: 'assets/characters/people/npc1.png'
-    })
-
-
-    setTimeout(() => {
-      hero.sprite.draw(this.ctx)
-      npc1.sprite.draw(this.ctx)
-    }, 200)
-
+    console.log(window.OverworldMaps.DemoRoom)
+    // this.map = new OverworldMap(window.OverworldMaps.DemoRoom)
+    // this.startGameLoop()
   }
 }
