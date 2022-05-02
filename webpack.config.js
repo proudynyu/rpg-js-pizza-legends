@@ -18,6 +18,18 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, 'public'),
+  },
+  devServer: {
+    host: "0.0.0.0",
+    port: 8080,
+    contentBase: "./public",
+    watchContentBase: true,
+    open: true,
+    https: false,
+    useLocalIp: true,
+    disableHostCheck: true,
+    overlay: true,
+    noInfo: true,
   },
 };

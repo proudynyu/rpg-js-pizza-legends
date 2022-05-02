@@ -7,7 +7,8 @@
   "author": "Igor Becker <igor.becker@acct.global>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn webpack ./src/index.ts"
+    "build": "yarn webpack ./src/index.ts",
+    "dev": "yarn webpack serve --config webpack.config.js ./src/index.ts"
   },
   "devDependencies": {
     "typescript": "^4.6.4",
@@ -15,6 +16,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "ts-loader": "^9.2.9"
+    "ts-loader": "^9.2.9",
+    "webpack-dev-server": "^4.8.1"
   }
 }

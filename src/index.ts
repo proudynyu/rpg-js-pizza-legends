@@ -1,4 +1,4 @@
-import { Overworld } from './lib'
+import { Overworld } from './lib/Overworld'
 
 function main() {
   const overworld = new Overworld({

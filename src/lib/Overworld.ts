@@ -1,3 +1,4 @@
+import { maps } from './maps'
 import { OverworldMap } from './OverworldMap'
 
 interface OverworldProps {
@@ -22,27 +23,25 @@ export class Overworld {
 
       this.map.drawLowerImage(this.ctx)
 
-      console.log(this.map)
-
-      Object.values(this.map.gameObject).forEach((gameObject) => {
-        gameObject.sprite.draw(
-          this.ctx
-        )
-      })
+      Object.values(this.map.gameObjects)
+        .forEach((gameObject) => {
+          gameObject.sprite.draw(
+            this.ctx
+          )
+        })
 
       this.map.drawUpperImage(this.ctx)
-
-      requestAnimationFrame(() => {
-        step()
-      })
     }
+
+    requestAnimationFrame(() => {
+      step()
+    })
 
     step()
   }
 
   init() {
-    console.log(window.OverworldMaps.DemoRoom)
-    // this.map = new OverworldMap(window.OverworldMaps.DemoRoom)
-    // this.startGameLoop()
+    this.map = new OverworldMap(maps.DemoRoom)
+    this.startGameLoop()
   }
 }

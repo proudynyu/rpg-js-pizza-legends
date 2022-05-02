@@ -1,4 +1,4 @@
-import { Sprite } from "."
+import { Sprite } from './Sprite'
 
 interface GameObjectProps {
   x: number
@@ -16,7 +16,7 @@ export class GameObject {
     this.y = config.y || 0
     this.sprite = new Sprite({
       gameObject: this,
-      src: config.src || 'assets/characters/people/hero.png'
+      src: config.src
     })
   }
 }
