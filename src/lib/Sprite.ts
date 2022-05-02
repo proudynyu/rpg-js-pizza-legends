@@ -26,7 +26,7 @@ export class Sprite {
     this.isShadowLoaded = false
 
     this.image = new Image()
-    this.image.src = config.src || 'assets/characters/people/hero.png'
+    this.image.src = config.src ?? 'assets/characters/people/hero.png'
     this.image.onload = () => {
       this.isLoaded = true
     }
@@ -40,12 +40,12 @@ export class Sprite {
       this.isShadowLoaded = true
     }
 
-    this.animation = config.animations || {
+    this.animation = config.animations ?? {
       idleDown: [
         [0, 0]
       ]
     }
-    this.currentAnimation = config.currentAnimation || "idleDown"
+    this.currentAnimation = config.currentAnimation ?? "idleDown"
     this.currentAnimationFrame = 0
 
     this.gameObject = config.gameObject
