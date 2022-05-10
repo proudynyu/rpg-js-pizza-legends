@@ -12,7 +12,7 @@ export const maps = {
       npc1: new GameObject({
         x: 7,
         y: 8,
-        src: 'assets/characters/people/npc1.png'
+        src: "assets/characters/people/npc1.png"
       })
     }
   },
@@ -27,12 +27,12 @@ export const maps = {
       npc1: new GameObject({
         x: 7,
         y: 8,
-        src: 'assets/characters/people/npc2.png'
+        src: "assets/characters/people/npc2.png"
       }),
       npc2: new GameObject({
         x: 4,
         y: 5,
-        src: 'assets/characters/people/npc3.png'
+        src: "assets/characters/people/npc3.png"
       })
     }
   }

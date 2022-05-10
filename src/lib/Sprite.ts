@@ -51,7 +51,7 @@ export class Sprite {
     this.gameObject = config.gameObject
   }
 
-  draw(ctx: CanvasRenderingContext2D | null) {
+  draw(ctx: CanvasRenderingContext2D) {
     const x = this.gameObject.x * 16 - 8
     const y = this.gameObject.y * 16 - 18
 

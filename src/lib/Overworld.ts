@@ -22,14 +22,16 @@ export class Overworld {
     const step = () => {
 
       this.map.drawLowerImage(this.ctx)
-      // this.map.drawUpperImage(this.ctx)
 
-      Object.values(this.map.gameObjects)
+      Object
+        .values(this.map.gameObjects)
         .forEach((gameObject) => {
           gameObject.sprite.draw(
             this.ctx
           )
         })
+
+      this.map.drawUpperImage(this.ctx)
 
     }
 

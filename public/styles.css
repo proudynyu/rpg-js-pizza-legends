@@ -19,7 +19,7 @@ body {
   width: 352px;
   height: 198px;
   outline: 1px solid white;
-  transform: scale(3);
+  transform: scale(2);
 }
 
 .game-container canvas {
