@@ -12,8 +12,8 @@ export class GameObject {
   public sprite: Sprite
 
   constructor(config: GameObjectProps) {
-    this.x = config.x ?? 0
-    this.y = config.y ?? 0
+    this.x = config.x
+    this.y = config.y
     this.sprite = new Sprite({
       gameObject: this,
       src: config?.src

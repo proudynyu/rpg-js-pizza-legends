@@ -7,7 +7,7 @@ interface SpriteProps {
   }
   currentAnimation?: string
   currentAnimationFrame?: number
-  gameObject?: GameObject
+  gameObject: GameObject
 }
 
 export class Sprite {
@@ -26,7 +26,7 @@ export class Sprite {
     this.isShadowLoaded = false
 
     this.image = new Image()
-    this.image.src = config.src ?? 'assets/characters/people/hero.png'
+    this.image.src = config.src ?? './assets/characters/people/hero.png'
     this.image.onload = () => {
       this.isLoaded = true
     }
@@ -34,7 +34,7 @@ export class Sprite {
     this.shadow = new Image()
     this.useShadow = true
     if (this.useShadow) {
-      this.shadow.src = "assets/characters/shadow.png"
+      this.shadow.src = "./assets/characters/shadow.png"
     }
     this.shadow.onload = () => {
       this.isShadowLoaded = true

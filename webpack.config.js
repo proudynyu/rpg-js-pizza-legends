@@ -1,35 +1,27 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.ts',
-  devtool: 'inline-source-map',
+  mode: "development",
+  entry: "./src/index.ts",
+  devtool: "inline-source-map",
+  devServer: {
+    port: 8080,
+    hot: true,
+  },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public'),
-  },
-  devServer: {
-    host: "0.0.0.0",
-    port: 8080,
-    contentBase: "./public",
-    watchContentBase: true,
-    open: true,
-    https: false,
-    useLocalIp: true,
-    disableHostCheck: true,
-    overlay: true,
-    noInfo: true,
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "public"),
   },
 };
