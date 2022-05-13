@@ -2,14 +2,14 @@ import { maps } from './maps'
 import { OverworldMap } from './OverworldMap'
 
 interface OverworldProps {
-  containerElement: Element
+  containerElement: Element,
 }
 
 export class Overworld {
   public containerElement: Element
   public canvas: HTMLCanvasElement
   public ctx: CanvasRenderingContext2D
-  public map: OverworldMap
+  public map: OverworldMap | null
 
   constructor(config: OverworldProps) {
     this.containerElement = config.containerElement
@@ -18,28 +18,28 @@ export class Overworld {
     this.map = null
   }
 
-  startGameLoop() {
-    const step = () => {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+  step() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-      this.map.drawLowerImage(this.ctx)
+    this.map.drawLowerImage(this.ctx)
 
-      Object
-        .values(this.map.gameObjects)
-        .forEach((gameObject) => {
-          gameObject.sprite.draw(
-            this.ctx
-          )
-        })
+    Object
+      .values(this.map.gameObjects)
+      .forEach((gameObject) => {
+        gameObject.sprite.draw(
+          this.ctx
+        )
+      })
 
-      this.map.drawUpperImage(this.ctx)
-    }
+    this.map.drawUpperImage(this.ctx)
 
     requestAnimationFrame(() => {
-      step()
+      this.step()
     })
+  }
 
-    step()
+  startGameLoop() {
+    this.step()
   }
 
   init() {
