@@ -1,12 +1,5 @@
+import { OverworldMapProps } from "./@types/overworld";
 import { GameObject } from "./GameObject";
-
-interface OverworldMapProps {
-  gameObjects: {
-    [key: string]: GameObject
-  }
-  lowerSrc: string
-  upperSrc: string
-}
 
 export class OverworldMap {
   public gameObjects: {
@@ -37,11 +30,11 @@ export class OverworldMap {
     }
   }
 
-  drawLowerImage(ctx: CanvasRenderingContext2D) {
+  drawLowerImage(ctx: CanvasRenderingContext2D): void {
     this.lowerImageLoaded && ctx.drawImage(this.lowerImage, 0, 0)
   }
 
-  drawUpperImage(ctx: CanvasRenderingContext2D) {
+  drawUpperImage(ctx: CanvasRenderingContext2D): void {
     this.upperImageLoaded && ctx.drawImage(this.upperImage, 0, 0)
   }
 }

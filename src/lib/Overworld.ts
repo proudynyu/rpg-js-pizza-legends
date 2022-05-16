@@ -1,9 +1,6 @@
+import { OverworldProps } from './@types/overworld'
 import { maps } from './maps'
 import { OverworldMap } from './OverworldMap'
-
-interface OverworldProps {
-  containerElement: Element,
-}
 
 export class Overworld {
   public containerElement: Element
@@ -18,7 +15,7 @@ export class Overworld {
     this.map = null
   }
 
-  step() {
+  step(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     this.map.drawLowerImage(this.ctx)
@@ -26,6 +23,7 @@ export class Overworld {
     Object
       .values(this.map.gameObjects)
       .forEach((gameObject) => {
+        gameObject.update()
         gameObject.sprite.draw(
           this.ctx
         )
@@ -38,11 +36,11 @@ export class Overworld {
     })
   }
 
-  startGameLoop() {
+  startGameLoop(): void {
     this.step()
   }
 
-  init() {
+  init(): void {
     this.map = new OverworldMap(maps.DemoRoom)
     this.startGameLoop()
   }

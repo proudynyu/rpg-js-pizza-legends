@@ -1,14 +1,5 @@
+import { SpriteProps } from './@types/sprite'
 import { GameObject } from './GameObject'
-
-interface SpriteProps {
-  src?: string
-  animations?: {
-    idleDown: any
-  }
-  currentAnimation?: string
-  currentAnimationFrame?: number
-  gameObject: GameObject
-}
 
 export class Sprite {
   public character: HTMLImageElement
@@ -49,9 +40,9 @@ export class Sprite {
     this.gameObject = config.gameObject
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    const x = this.gameObject.x * 16 - 8
-    const y = this.gameObject.y * 16 - 18
+  draw(ctx: CanvasRenderingContext2D): void {
+    const x = this.gameObject.x - 8
+    const y = this.gameObject.y - 18
 
     this.isShadowLoaded &&
       ctx.drawImage(
