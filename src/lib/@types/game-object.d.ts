@@ -7,4 +7,9 @@ interface GameObjectProps {
   y: number
   src?: string
   direction?: Directions
+  isPlayer?: boolean
+}
+
+interface UpdateState {
+  arrow: Directions
 }

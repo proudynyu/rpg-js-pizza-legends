@@ -12,8 +12,9 @@ export const maps = {
       hero: new Person({
         x: withGrid(5),
         y: withGrid(6),
+        isPlayer: true
       }),
-      npc1: new GameObject({
+      npc1: new Person({
         x: withGrid(7),
         y: withGrid(8),
         src: "/images/characters/people/npc1.png"

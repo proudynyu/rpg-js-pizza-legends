@@ -3,3 +3,7 @@ export const utils =  {
     return n * 16
   }
 }
+
+export const equals = (k: any, v: any) => {
+  return k === v
+}

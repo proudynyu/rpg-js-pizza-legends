@@ -16,7 +16,7 @@ export class GameObject {
     })
   }
 
-  public update(): void {
+  public update(state: UpdateState): void {
 
   }
 }

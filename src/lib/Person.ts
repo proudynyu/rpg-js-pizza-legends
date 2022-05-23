@@ -1,15 +1,14 @@
 import { GameObject } from "./GameObject";
+import { equals } from "./utils";
 
 export class Person extends GameObject {
   public movingProgressRemaining: number
-
-  public directionUpdate: {
-    [K in Directions]: [Axis, number]
-  }
+  public isPlayer: boolean
+  public directionUpdate: Record<Directions, [Axis, number]>
 
   constructor(config: GameObjectProps) {
     super(config)
-    this.movingProgressRemaining = 32
+    this.movingProgressRemaining = 0
 
     this.directionUpdate = {
       'up': ['y', -1],
@@ -17,10 +16,17 @@ export class Person extends GameObject {
       'left': ['x', -1],
       'right': ['x', 1]
     }
+
+    this.isPlayer = config.isPlayer || false
   }
 
-  public update(): void {
+  public update(state: UpdateState): void {
     this.updatePosition()
+
+    if (equals(this.movingProgressRemaining, 0) && state.arrow && this.isPlayer) {
+      this.direction = state.arrow
+      this.movingProgressRemaining = 16
+    }
   }
 
   public updatePosition(): void {
