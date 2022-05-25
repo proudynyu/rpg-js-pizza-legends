@@ -1,4 +1,4 @@
-import { SpriteProps } from './@types/sprite'
+import { Idles, SpriteProps } from './@types/sprite'
 import { GameObject } from './GameObject'
 
 export class Sprite {
@@ -7,8 +7,10 @@ export class Sprite {
   public shadow: HTMLImageElement
   public useShadow: boolean
   public isShadowLoaded: boolean
-  public animation: {}
-  public currentAnimation: string
+  public animation: Record<Idles, number[][]>
+  public animationFrameLimit: number
+  public animationFrameProgress: number
+  public currentAnimation: Idles
   public currentAnimationFrame: number
   public gameObject: GameObject
 
@@ -29,15 +31,50 @@ export class Sprite {
     }
 
     this.animation = config.animations || {
-      idleDown: [
-        [0, 0]
-      ]
+      "idle-down":  [[0, 0]],
+      "idle-left":  [[0, 3]],
+      "idle-right": [[0, 1]],
+      "idle-up":    [[0, 2]],
+      "walk-up":    [[1, 2], [0, 2], [3, 2], [0, 2]],
+      "walk-left":  [[1, 3], [0, 3], [3, 3], [0, 3]],
+      "walk-right": [[1, 1], [0, 1], [3, 1], [0, 1]],
+      "walk-down":  [[1, 0], [0, 0], [3, 0], [0, 0]]
     }
 
-    this.currentAnimation = config.currentAnimation || "idleDown"
+    this.currentAnimation = config.currentAnimation || "walk-down"
     this.currentAnimationFrame = 0
 
+    this.animationFrameLimit = config.animationFrameLimit || 8
+    this.animationFrameProgress = this.animationFrameLimit
+
     this.gameObject = config.gameObject
+  }
+
+  public get frames() {
+    return this.animation[this.currentAnimation][this.currentAnimationFrame]
+  }
+
+  public setAnimation(key: Idles) {
+    if (key !== this.currentAnimation) {
+      this.currentAnimation = key
+      this.currentAnimationFrame = 0
+      this.animationFrameProgress = this.animationFrameLimit
+    }
+  }
+
+  public updateAnimationProgress(): void {
+    if (this.animationFrameProgress > 0) {
+      this.animationFrameProgress -= 1
+      return
+    }
+
+    this.animationFrameProgress = this.animationFrameLimit
+
+    this.currentAnimationFrame += 1
+
+    if (this.frames === undefined) {
+      this.currentAnimationFrame = 0
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -50,14 +87,18 @@ export class Sprite {
         x, y
       )
 
+    const [frameX, frameY] = this.frames
+
     this.isCharacterLoaded &&
       ctx.drawImage(
         this.character,
-        0, 0,
+        frameX * 32, frameY * 32,
         32, 32,
         x, y,
         32, 32
       )
+
+    this.updateAnimationProgress()
   }
 
 }

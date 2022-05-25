@@ -1,3 +1,4 @@
+import { Idles } from "./@types/sprite";
 import { GameObject } from "./GameObject";
 import { equals } from "./utils";
 
@@ -22,6 +23,7 @@ export class Person extends GameObject {
 
   public update(state: UpdateState): void {
     this.updatePosition()
+    this.updateSprite(state)
 
     if (equals(this.movingProgressRemaining, 0) && state.arrow && this.isPlayer) {
       this.direction = state.arrow
@@ -36,5 +38,21 @@ export class Person extends GameObject {
 
       this.movingProgressRemaining -= 1
     }
+  }
+
+  public updateSprite(state: UpdateState) {
+    if (equals(this.movingProgressRemaining, 0) && !state.arrow && this.isPlayer) {
+      this.switchSprite('idle', this.direction)
+    }
+
+    if (this.movingProgressRemaining > 0) {
+      this.switchSprite('walk', this.direction)
+    }
+
+  }
+
+  private switchSprite(movement: 'walk' | 'idle', directions: Directions) {
+    const sprite = (movement + '-' + directions) as Idles
+    this.sprite.setAnimation(sprite)
   }
 }
