@@ -21,7 +21,7 @@ export class Overworld {
   step(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-    this.map.drawLowerImage(this.ctx)
+    const cameraPerson = this.map.gameObjects.hero
 
     Object
       .values(this.map.gameObjects)
@@ -29,12 +29,20 @@ export class Overworld {
         gameObject.update({
           arrow: this.directionInput.direction
         })
+      })
+
+    this.map.drawLowerImage(this.ctx, cameraPerson)
+
+    Object
+      .values(this.map.gameObjects)
+      .forEach((gameObject) => {
         gameObject.sprite.draw(
-          this.ctx
+          this.ctx,
+          cameraPerson
         )
       })
 
-    this.map.drawUpperImage(this.ctx)
+    this.map.drawUpperImage(this.ctx, cameraPerson)
 
     requestAnimationFrame(() => {
       this.step()

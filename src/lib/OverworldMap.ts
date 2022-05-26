@@ -1,5 +1,6 @@
 import { OverworldMapProps } from "./@types/overworld";
 import { GameObject } from "./GameObject";
+import { utils } from "./utils";
 
 export class OverworldMap {
   public gameObjects: {
@@ -30,11 +31,20 @@ export class OverworldMap {
     }
   }
 
-  drawLowerImage(ctx: CanvasRenderingContext2D): void {
-    this.lowerImageLoaded && ctx.drawImage(this.lowerImage, 0, 0)
+  public coordenates(cameraPerson: GameObject) {
+    return {
+      x: utils.withGrid(10.5) - cameraPerson.x,
+      y: utils.withGrid(6) - cameraPerson.y
+    }
   }
 
-  drawUpperImage(ctx: CanvasRenderingContext2D): void {
-    this.upperImageLoaded && ctx.drawImage(this.upperImage, 0, 0)
+  drawLowerImage(ctx: CanvasRenderingContext2D, cameraPerson: GameObject): void {
+    const { x, y } = this.coordenates(cameraPerson)
+    this.lowerImageLoaded && ctx.drawImage(this.lowerImage, x, y)
+  }
+
+  drawUpperImage(ctx: CanvasRenderingContext2D, cameraPerson: GameObject): void {
+    const { x, y } = this.coordenates(cameraPerson)
+    this.upperImageLoaded && ctx.drawImage(this.upperImage, x, y)
   }
 }
