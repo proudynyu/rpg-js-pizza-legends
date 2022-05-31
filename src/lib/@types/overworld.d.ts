@@ -10,4 +10,7 @@ interface OverworldMapProps {
   }
   lowerSrc: string
   upperSrc: string
+  walls?: {
+    [key: string]: boolean
+  }
 }

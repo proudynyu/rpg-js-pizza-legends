@@ -1,3 +1,4 @@
+import { Directions, GameObjectProps, UpdateState } from './@types/game-object'
 import { Sprite } from './Sprite'
 
 export class GameObject {

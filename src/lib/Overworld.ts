@@ -27,7 +27,8 @@ export class Overworld {
       .values(this.map.gameObjects)
       .forEach((gameObject) => {
         gameObject.update({
-          arrow: this.directionInput.direction
+          arrow: this.directionInput.direction,
+          map: this.map
         })
       })
 

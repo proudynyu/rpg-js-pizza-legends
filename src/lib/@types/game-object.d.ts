@@ -1,3 +1,5 @@
+import { OverworldMap } from "../OverworldMap"
+
 type Directions = 'down' | 'up' | 'left' | 'right'
 
 type Axis = 'x' | 'y'
@@ -12,4 +14,10 @@ interface GameObjectProps {
 
 interface UpdateState {
   arrow: Directions
+  map: OverworldMap
+}
+
+interface BehaviorProps {
+  type: string
+  direction: Directions
 }

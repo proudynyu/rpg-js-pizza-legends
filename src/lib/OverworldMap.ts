@@ -1,3 +1,4 @@
+import { Directions } from "./@types/game-object";
 import { OverworldMapProps } from "./@types/overworld";
 import { GameObject } from "./GameObject";
 import { utils } from "./utils";
@@ -12,8 +13,13 @@ export class OverworldMap {
   public lowerImageLoaded: boolean
   public upperImageLoaded: boolean
 
+  public walls: {
+    [key: string]: boolean
+  }
+
   constructor(config: OverworldMapProps) {
     this.gameObjects = config.gameObjects
+    this.walls = config.walls || {}
 
     this.lowerImageLoaded = false
     this.upperImageLoaded = false
@@ -46,5 +52,10 @@ export class OverworldMap {
   drawUpperImage(ctx: CanvasRenderingContext2D, cameraPerson: GameObject): void {
     const { x, y } = this.coordenates(cameraPerson)
     this.upperImageLoaded && ctx.drawImage(this.upperImage, x, y)
+  }
+
+  isSpaceTaken(currentX: number, currentY: number, direction: Directions): boolean {
+    const { x, y } = utils.nextPosition(currentX, currentY, direction)
+    return this.walls[`${x},${y}`] || false
   }
 }

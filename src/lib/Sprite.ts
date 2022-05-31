@@ -1,6 +1,6 @@
 import { Idles, SpriteProps } from './@types/sprite'
 import { GameObject } from './GameObject'
-import { utils } from './utils'
+import { equals, utils } from './utils'
 
 export class Sprite {
   public character: HTMLImageElement
@@ -73,7 +73,7 @@ export class Sprite {
 
     this.currentAnimationFrame += 1
 
-    if (this.frames === undefined) {
+    if (equals(this.frames, undefined)) {
       this.currentAnimationFrame = 0
     }
   }

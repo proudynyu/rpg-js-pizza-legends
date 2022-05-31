@@ -1,3 +1,6 @@
+import { Directions } from "./@types/game-object"
+import { equals } from "./utils"
+
 export class DirectionInput {
   public heldDirections: Directions[]
   public map: Record<string, Partial<Directions>>
@@ -26,7 +29,7 @@ export class DirectionInput {
       const dir = this.map[e.code]
       const index = this.heldDirections.indexOf(dir)
 
-      if (dir && index === -1) {
+      if (dir && equals(index, -1)) {
         this.heldDirections.unshift(dir)
       }
     })

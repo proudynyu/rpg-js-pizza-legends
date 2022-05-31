@@ -19,6 +19,12 @@ export const maps = {
         y: withGrid(8),
         src: "/images/characters/people/npc1.png"
       })
+    },
+    walls: {
+      [utils.asGridCoords(7, 6)] : true,
+      [utils.asGridCoords(8, 6)] : true,
+      [utils.asGridCoords(7, 7)] : true,
+      [utils.asGridCoords(8,7)] : true,
     }
   },
   Kitchen: {

@@ -1,3 +1,4 @@
+import { Axis, BehaviorProps, Directions, GameObjectProps, UpdateState } from "./@types/game-object";
 import { Idles } from "./@types/sprite";
 import { GameObject } from "./GameObject";
 import { equals } from "./utils";
@@ -22,36 +23,45 @@ export class Person extends GameObject {
   }
 
   public update(state: UpdateState): void {
-    this.updatePosition()
-    this.updateSprite(state)
+    if (this.movingProgressRemaining > 0) {
+      this.updatePosition()
+    } else {
+      if (state.arrow && this.isPlayer) {
+        this.startBehavior(state, {
+          type: 'walk',
+          direction: state.arrow
+        })
+      }
+      this.updateSprite()
+    }
+  }
 
-    if (equals(this.movingProgressRemaining, 0) && state.arrow && this.isPlayer) {
-      this.direction = state.arrow
+  public startBehavior(state: UpdateState, options: BehaviorProps): void {
+    this.direction = options.direction
+    if (equals(options.type, 'walk')) {
+      if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+        return
+      }
       this.movingProgressRemaining = 16
     }
   }
 
   public updatePosition(): void {
-    if (this.movingProgressRemaining > 0) {
-      const [prop, change] = this.directionUpdate[this.direction]
-      this[prop] += change
+    const [prop, change] = this.directionUpdate[this.direction]
+    this[prop] += change
 
-      this.movingProgressRemaining -= 1
-    }
+    this.movingProgressRemaining -= 1
   }
 
-  public updateSprite(state: UpdateState) {
-    if (equals(this.movingProgressRemaining, 0) && !state.arrow && this.isPlayer) {
-      this.switchSprite('idle', this.direction)
-    }
-
+  public updateSprite(): void {
     if (this.movingProgressRemaining > 0) {
       this.switchSprite('walk', this.direction)
+      return
     }
-
+    this.switchSprite('idle', this.direction)
   }
 
-  private switchSprite(movement: 'walk' | 'idle', directions: Directions) {
+  private switchSprite(movement: 'walk' | 'idle', directions: Directions): void {
     const sprite = (movement + '-' + directions) as Idles
     this.sprite.setAnimation(sprite)
   }
