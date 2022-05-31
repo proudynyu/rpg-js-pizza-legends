@@ -57,6 +57,8 @@ export class Overworld {
   init(): void {
     this.map = new OverworldMap(maps.DemoRoom)
 
+    this.map.mountObjects()
+
     this.directionInput = new DirectionInput()
     this.directionInput.init()
 
