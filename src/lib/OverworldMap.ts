@@ -4,6 +4,7 @@ import { GameObject } from "./GameObject";
 import { utils } from "./utils";
 
 export class OverworldMap {
+  public isCutscenePlaying: boolean
   public gameObjects: {
     [key: string]: GameObject;
   };
@@ -18,6 +19,7 @@ export class OverworldMap {
   };
 
   constructor(config: OverworldMapProps) {
+    this.isCutscenePlaying = false
     this.gameObjects = config.gameObjects;
     this.walls = config.walls || {};
 
@@ -70,8 +72,12 @@ export class OverworldMap {
   }
 
   public mountObjects() {
-    Object.values(this.gameObjects).forEach((gameObject) => {
-      gameObject.mount(this);
+    Object.keys(this.gameObjects).forEach((key) => {
+
+      let object = this.gameObjects[key]
+      object.id = key
+
+      object.mount(this);
     });
   }
 

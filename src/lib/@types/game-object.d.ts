@@ -10,6 +10,7 @@ interface GameObjectProps {
   src?: string
   direction?: Directions
   isPlayer?: boolean
+  behaviorLoop?: Array<BehaviorLoop>
 }
 
 interface UpdateState {
@@ -17,7 +18,14 @@ interface UpdateState {
   map: OverworldMap
 }
 
+type BehaviorTypes = 'walk' | 'stand'
+
 interface BehaviorProps {
-  type: string
+  type: BehaviorTypes
   direction: Directions
+}
+
+interface BehaviorLoop extends BehaviorProps {
+  time?: number
+  who?: string
 }
